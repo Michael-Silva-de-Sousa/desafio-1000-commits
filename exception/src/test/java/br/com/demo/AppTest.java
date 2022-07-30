@@ -1,20 +1,20 @@
 package br.com.demo;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+class AppTest {
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    void testMinhaException() {
+        Exception thrown = Assertions.assertThrows(MinhaException.class, this::dividePorZero);
+        Assertions.assertEquals("Minha excecao foi lancada!", thrown.getMessage());
+    }
+
+    void dividePorZero() throws Exception {
+        throw new MinhaException("Minha excecao foi lancada!");
     }
 }
