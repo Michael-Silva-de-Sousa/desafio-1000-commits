@@ -38,10 +38,10 @@ class AppTest {
         throw new MinhaException("Minha excecao foi lancada!");
     }
 
-    void dividePorZeroComThrowable() throws Exception {
+    void dividePorZeroComThrowable() throws MinhaException {
         try {
             Integer.parseInt("A");
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new MinhaException("Minha excecao foi lancada!", e);
         }
     }
