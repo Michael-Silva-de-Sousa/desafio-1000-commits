@@ -4,6 +4,14 @@ spring:
   #active: development
   application:
     name: consumer
+# RabbitMQ
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+queue:
+  name: Pegasus
 # Server configuration
+
 server:
   port: 8081 #set your port
