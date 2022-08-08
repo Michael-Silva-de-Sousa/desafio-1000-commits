@@ -1,0 +1,9 @@
+# Spring Boot configuration
+spring:
+  #profiles:
+  #active: development
+  application:
+    name: producer
+# Server configuration
+server:
+  port: 8080 #set your port
