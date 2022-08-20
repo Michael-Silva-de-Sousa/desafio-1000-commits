@@ -1,5 +1,7 @@
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.TreeMap;
+
 /**
  * <p>
  * Nese exemplo é demontrado o comportamento comum de
@@ -32,22 +34,32 @@ public class SorveteriaSync {
     public static void main(String[] args) throws InterruptedException {
 
         long start = System.currentTimeMillis();
+        //true para executar o pedido no modo sincrono.
+        //false para executar o pedido no modo assincrono.
+        if(false) {
 
-        Pedido.fazerPedido("A", "casquinha");
-        Pedido.fazerPedido("B", "bola sorvete");
-        Pedido.fazerPedido("C", "pagamento");
+            PedidoSync pedidoSync = new PedidoSync();
+            pedidoSync.fazerPedido("A", "casquinha");
+            pedidoSync.fazerPedido("B", "bola sorvete");
+            pedidoSync.fazerPedido("C", "pagamento");
+
+        } else {
+
+            PedidoAsync casquinha = new PedidoAsync("A", "casquinha");
+            PedidoAsync bolaSorvete = new PedidoAsync("B", "bola sorvete");
+            PedidoAsync pagamento = new PedidoAsync("C", "pagamento");
+
+            Thread eventoCasquinha = new Thread(casquinha, "Thread-Casquinha");
+            Thread eventoBolaSorvete = new Thread(bolaSorvete, "Thread-Bola-Sorvete");
+            Thread eventoPagamento = new Thread(pagamento, "Thread-Pagamento");
+
+            //eventoCasquinha.start(); Quando se usa o .run() a thread main é utilizada.
+            eventoCasquinha.start();//Quando seu usa o .start() uma nova thread é criada.
+            eventoBolaSorvete.start();
+            eventoPagamento.start();
+        }
 
         long end = System.currentTimeMillis();
-
         log.info("Tempo de execução em segundos: {}", (end - start) / 1000.0);
-    }
-
-    static class Pedido {
-        public static void fazerPedido(String atendente, String evento) throws InterruptedException {
-            log.info("Atendente {} está preparando: {}", atendente, evento);
-            //O Sleep representa o tempo que leva para o evento acontecer
-            Thread.sleep(1000);
-            log.info("O Atentende {} finalizou: {}", atendente, evento);
-        }
     }
 }
