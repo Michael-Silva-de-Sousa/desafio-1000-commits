@@ -44,10 +44,8 @@
     
     
     <module>consumer</module>
-          
-    
-    <module>amqp</module>
-      
+    <module>metodos_sincronos_assincronos</module>
+
   </modules>
         
   
