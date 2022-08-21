@@ -37,7 +37,12 @@ public class SorveteriaSync {
         //true para executar o pedido no modo sincrono.
         //false para executar o pedido no modo assincrono.
         if(false) {
-
+            /**
+             * No processo sincrono os eventos ocorrem um seguido do outro
+             * em uma única thread, assim se um evento demorar ou for interrompdo
+             * isso significa que os próximos eventos serão prejudicados, podendo
+             * não ser executados.
+             */
             PedidoSync pedidoSync = new PedidoSync();
             pedidoSync.fazerPedido("A", "casquinha");
             pedidoSync.fazerPedido("B", "bola sorvete");
@@ -45,6 +50,12 @@ public class SorveteriaSync {
 
         } else {
 
+            /**
+             * No processo assincrono ocorre o paralelismo ddos eventos, os mesmos
+             * são executados de modo independente, assim um não interrompe no outro,
+             * porém como são assíncronos não possuem uma ordem de execução, pois cada
+             * evento é alocado em uma thread exclusiva.
+             */
             PedidoAsync casquinha = new PedidoAsync("A", "casquinha");
             PedidoAsync bolaSorvete = new PedidoAsync("B", "bola sorvete");
             PedidoAsync pagamento = new PedidoAsync("C", "pagamento");
