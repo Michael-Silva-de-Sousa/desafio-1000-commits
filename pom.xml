@@ -45,6 +45,7 @@
     
     <module>consumer</module>
     <module>metodos_sincronos_assincronos</module>
+      <module>streams</module>
 
   </modules>
         
