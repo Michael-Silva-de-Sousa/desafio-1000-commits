@@ -1,11 +1,13 @@
 package exemplos;
 
+import beans.Carro;
 import beans.Pessoa;
 import mockdata.MockData;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Exemplos do uso de Streams para ordernar
@@ -30,7 +32,7 @@ class Sorting {
     }
 
     @Test
-    void ordenandoPorNomeReverso() throws Exception {
+    void ordenarPorNomeReverso() throws Exception {
 
         var pessoas = MockData.getPessoas();
 
@@ -40,5 +42,19 @@ class Sorting {
                 .toList();
 
         ordenadoRerverso.forEach(System.out::println);
+    }
+
+    @Test
+    void ordenarOsDezCarrosAzuisMaisCaro() throws Exception {
+
+        var carros = MockData.getCarros();
+
+        var topDez = carros.stream()
+                .filter(car -> "blue".equalsIgnoreCase(car.getColor()))
+                .sorted(Comparator.comparing(Carro::getPrice).reversed())
+                .limit(10)
+                .toList();
+
+        topDez.forEach(i -> System.out.println(i.toString()));
     }
 }
