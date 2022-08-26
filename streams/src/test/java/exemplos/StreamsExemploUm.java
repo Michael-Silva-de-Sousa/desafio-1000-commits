@@ -4,6 +4,7 @@ import beans.Pessoa;
 import mockdata.MockData;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 class StreamsExemploUm {
@@ -44,6 +45,25 @@ class StreamsExemploUm {
                 .forEach(System.out::println);
 
 
+    }
+
+    @Test
+    void filtrarPorFasesPessoas() throws Exception {
+        MockData.getPessoas()
+                .stream()
+                .filter(p -> { //filtra Pessoas maiores de 17 anos e com idade menor que 31.
+                    return p.getAge() >= 18 && p.getAge() <= 30 ;
+                })
+                .filter(p -> { //Pega o resultado e filtra por genero male
+                    return p.getGender().equalsIgnoreCase("male");
+                }).filter(p -> {
+                    return p.getFirstName().toUpperCase().startsWith("A");
+                }).sorted(Comparator.comparing(Pessoa::getAge))//Ordenando por idade
+                /*
+                .map(p -> {
+                    return p.getFirstName().toUpperCase();
+                })*/
+                .forEach(System.out::println);
     }
 
 }
